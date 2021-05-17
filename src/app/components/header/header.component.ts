@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { Header } from './header.model';
 
@@ -5,7 +6,27 @@ import { Header } from './header.model';
   selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  host:{class:'header'}
+  host:{class:'header'},
+  animations:[
+    trigger('showHide',[
+      transition(':enter',[
+        style({
+          opacity:0,
+          transform:'translateX(30px)'
+        }),
+        animate('0.3s 0s cubic-bezier(0.165, 0.84, 0.44, 1)',style({
+          opacity:1,
+          transform:'translateX(0px)'
+        }))
+      ]),
+      transition(':leave',[
+        animate('0.3s 0s cubic-bezier(0.165, 0.84, 0.44, 1)'),style({
+          opacity:0,
+          transform:'translateX(30px)'
+        })
+      ])
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit {
 
