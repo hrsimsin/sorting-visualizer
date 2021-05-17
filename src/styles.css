@@ -1,19 +1,48 @@
-* {
+@import '~material-icons/iconfont/material-icons.css';
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+body,html {
     margin: 0 !important;
     padding: 0 !important;
 }
 
+.main-container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 .header{
     display: flex;
-    height: 10vh;
+    flex: 0 1 auto;
+    align-items: center;
     background-color: #181818;
+    color: white;
+    padding: 1.5rem;
+}
+
+.header .logo{
+    font-size: 1.5rem;
+    font-family: 'Archivo Black', sans-serif;
+}
+
+.header .icon{
+    cursor: pointer;
+    background-color: #202020;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.header .separator{
+    flex-grow: 1;
 }
 
 .bar-panel{
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 90vh;
+    flex: 1 0 auto;
     background-color: #262626;
 }
 
@@ -25,7 +54,7 @@
 }
 
 .bar-unprocessed{
-    background-color: orange;
+    background-color: #EBEBEB;
 }
 
 .bar-processing{

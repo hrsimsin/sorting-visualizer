@@ -1,2 +1,4 @@
-<header></header>
+<div class="main-container">
+<header (randomizeClicked)="app.randomize()" (toggleSortingClicked)="app.toggleSorting()" [isSorting]="app.isSorting"></header>
 <bar-panel [bars]="app.bars" ></bar-panel>
+</div>
