@@ -1,9 +1,10 @@
 import { Bar, BarState } from "./components/bar-panel/bar.model";
+import { Header } from "./components/header/header.model";
 
 export class App {
     numBars: number = 150;
     bars: Bar[];
-    isSorting : boolean = false;
+    header : Header = new Header();
 
     constructor() {
         this.bars = Array.from(Array(this.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
@@ -11,11 +12,15 @@ export class App {
 
     randomize() {
         this.shuffle(this.bars);
-        this.isSorting = false;
+        this.header.isSorting = false;
     }
 
     toggleSorting(){
-        this.isSorting = !this.isSorting;
+        this.header.isSorting = !this.header.isSorting;
+    }
+
+    toggleMenu(){
+        this.header.isMenuOpen = !this.header.isMenuOpen;
     }
 
     private shuffle(array: Bar[]) {
