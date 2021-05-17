@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.header{
+    display: flex;
+    height: 10vh;
+    background-color: #181818;
+}
+
+.bar-panel{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 90vh;
+    background-color: #262626;
+}
+
+.bar{
+    flex: 1 1 auto;
+    max-width: 80px;
+    border-left: 1px solid #262626;
+    border-right: 1px solid #262626;
+}
+
+.bar-unprocessed{
+    background-color: orange;
+}
+
+.bar-processing{
+    background-color: green;
+}
+
+.bar-processed{
+    background-color: blue;
+}

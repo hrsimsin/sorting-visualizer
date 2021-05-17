@@ -1,0 +1,2 @@
+<div class="bar" *ngFor="let bar of bars" [style.height.%]="(bar.value/(bars.length))*100" 
+[ngClass]="{'bar-unprocessed':bar.state === barState.unprocessed,'bar-processing':bar.state === barState.processing,'bar-processed':bar.state === barState.processed}"></div>
