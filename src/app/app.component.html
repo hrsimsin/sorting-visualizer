@@ -1,8 +1,7 @@
 <div class="main-container">
-<header 
-        (randomizeClicked)="app.randomize()" 
-        (toggleSortingClicked)="app.toggleSorting()" 
-        (toggleMenuClicked)="app.toggleMenu()"
-        [header]="app.header"></header>
-<bar-panel [bars]="app.bars" ></bar-panel>
+    <header (randomizeClicked)="app.randomize()" (toggleSortingClicked)="app.toggleSorting()"
+        (toggleMenuClicked)="app.toggleMenu()" [header]="app.header"></header>
+    <div class="bottom-container">
+        <bar-panel [bars]="app.bars"></bar-panel>
+    </div>
 </div>

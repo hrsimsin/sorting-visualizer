@@ -16,8 +16,6 @@ export class HeaderComponent implements OnInit {
 
   @Input() header : Header = new Header();
 
-  // @HostBinding('attr.class') cssClass : string = this.header.isMenuOpen ? 'header header-open' : 'header header-close'; 
-
   constructor() { }
 
   ngOnInit(): void {
