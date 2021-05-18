@@ -38,6 +38,7 @@ body,html {
     position: absolute;
     left: 0;
     right: 0;
+    height: 100%;
     top: 0;
     margin: 0;
     background-color: var(--color-foreground-1);
