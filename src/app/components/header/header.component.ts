@@ -12,18 +12,15 @@ import { Header } from './header.model';
     [
       transition(':enter',[
         style({
-          transform:'scale(0)',
-          // opacity:0
+          transform:'scale(0)'
         }),
         animate('300ms 0s cubic-bezier(0.165, 0.84, 0.44, 1)',style({
-          transform:'scale(1)',
-          // opacity:1
+          transform:'scale(1)'
         }))
       ]),
       transition(':leave',[
         animate('250ms 0s cubic-bezier(0.55, 0.085, 0.68, 0.53)',style({
-          transform:'scale(0)',
-          // opacity:0
+          transform:'scale(0)'
         }))
       ])
     ]
