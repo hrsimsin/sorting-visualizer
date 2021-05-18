@@ -3,6 +3,6 @@
         (toggleMenuClicked)="app.toggleMenu()" [header]="app.header"></header>
     <div class="bottom-container">
         <menu *ngIf="app.header.isMenuOpen"></menu>
-        <bar-panel [bars]="app.bars"></bar-panel>
+        <bar-panel [barPanel]="app.barPanel"></bar-panel>
     </div>
 </div>

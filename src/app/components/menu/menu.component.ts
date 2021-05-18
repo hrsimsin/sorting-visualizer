@@ -44,7 +44,7 @@ import { animate, query, sequence, stagger, state, style, transition, trigger } 
                 }))
               ])
             ]),
-            animate('250ms 250ms cubic-bezier(0.165, 0.84, 0.44, 1)', style({
+            animate('200ms 0ms cubic-bezier(0.165, 0.84, 0.44, 1)', style({
               height: '0%'
             }))
           ])

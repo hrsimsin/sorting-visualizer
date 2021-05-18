@@ -1,17 +1,20 @@
+import { BarPanel } from "./components/bar-panel/bar-panel.model";
 import { Bar, BarState } from "./components/bar-panel/bar.model";
 import { Header } from "./components/header/header.model";
 
 export class App {
     numBars: number = 150;
-    bars: Bar[];
+    barPanel : BarPanel = new BarPanel([],false);
     header : Header = new Header();
 
     constructor() {
-        this.bars = Array.from(Array(this.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
+        this.barPanel.bars = Array.from(Array(this.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
     }
 
     randomize() {
-        this.shuffle(this.bars);
+        this.barPanel.isShuffled = true;
+        this.shuffle(this.barPanel.bars);
+        this.barPanel = {...this.barPanel};   
         this.header.isSorting = false;
     }
 
