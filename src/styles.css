@@ -34,14 +34,22 @@ body,html {
 .menu{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     position: absolute;
+    flex-direction: column;
     left: 0;
     right: 0;
     height: 100%;
     top: 0;
     margin: 0;
     background-color: var(--color-foreground-1);
+    font: var(--font-sub-heading);
+}
+
+.menu-item{
+    background-color: var(--color-background);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .header{
