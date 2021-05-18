@@ -12,17 +12,20 @@ import { Header } from './header.model';
       transition(':enter',[
         style({
           opacity:0,
-          transform:'translateX(1vw)'
+          transform:'translateX(1vw) rotate(20deg)',
+          borderRadius:'40px'
         }),
         animate('0.3s 0s cubic-bezier(0.165, 0.84, 0.44, 1)',style({
           opacity:1,
-          transform:'translateX(0vw)'
+          transform:'translateX(0vw) rotate(0deg)',
+          borderRadius:'5px'
         }))
       ]),
       transition(':leave',[
         animate('0.3s 0s cubic-bezier(0.165, 0.84, 0.44, 1)'),style({
           opacity:0,
-          transform:'translateX(1vw)'
+          transform:'translateX(1vw) rotate(20deg)',
+          borderRadius:'40px'
         })
       ])
     ])

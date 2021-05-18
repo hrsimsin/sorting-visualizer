@@ -1,9 +1,23 @@
 @import '~material-icons/iconfont/material-icons.css';
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
+:root{
+    --color-background : #262626; 
+    --color-foreground-1 : #181818; 
+    --color-foreground-2 : #202020;
+    --color-text : #EFEFEF;
+    --font-heading: 1.5rem 'Archivo Black', sans-serif;
+    --font-sub-heading: 1.2rem 'Archivo Black', sans-serif;
+}
+
 body,html {
     margin: 0 !important;
     padding: 0 !important;
+    color: var(--color-text);
+}
+
+.menu-item{
+    font: var(--font-sub-heading);
 }
 
 .main-container{
@@ -18,31 +32,29 @@ body,html {
 }
 
 .menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     margin: 0;
-    background-color: #181818;
+    background-color: var(--color-foreground-1);
 }
 
 .header{
     display: flex;
     flex: 0 1 auto;
     align-items: center;
-    background-color: #181818;
-    color: white;
+    background-color: var(--color-foreground-1);
     padding: 1.5rem;
-}
-
-.header .logo{
-    font-size: 1.5rem;
-    font-family: 'Archivo Black', sans-serif;
+    font: var(--font-heading);
 }
 
 .header .icon{
     cursor: pointer;
-    background-color: #202020;
+    background-color: var(--color-foreground-2);
     padding: 5px;
     border-radius: 5px;
     margin-left: 5px;
@@ -58,14 +70,14 @@ body,html {
     align-items: flex-end;
     width: 100%;
     height: 100%;
-    background-color: #262626;
+    background-color: var(--color-background);
 }
 
 .bar{
     flex: 1 1 auto;
     max-width: 80px;
-    border-left: 1px solid #262626;
-    border-right: 1px solid #262626;
+    border-left: 1px solid var(--color-background);
+    border-right: 1px solid var(--color-background);
 }
 
 .bar-unprocessed{
