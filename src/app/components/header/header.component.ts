@@ -6,7 +6,29 @@ import { Header } from './header.model';
   selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  host:{class:'header'}
+  host:{class:'header'},
+  animations:[
+    trigger('buttonShowHide',
+    [
+      transition(':enter',[
+        style({
+          transform:'scale(0)',
+          // opacity:0
+        }),
+        animate('300ms 0s cubic-bezier(0.165, 0.84, 0.44, 1)',style({
+          transform:'scale(1)',
+          // opacity:1
+        }))
+      ]),
+      transition(':leave',[
+        animate('250ms 0s cubic-bezier(0.55, 0.085, 0.68, 0.53)',style({
+          transform:'scale(0)',
+          // opacity:0
+        }))
+      ])
+    ]
+    )
+  ]
 })
 export class HeaderComponent implements OnInit {
 

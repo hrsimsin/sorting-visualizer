@@ -6,9 +6,31 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   selector: 'menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
-  host:{class:'menu'}
+  host: { class: 'menu' },
+  animations: [
+    trigger(
+      'toggleMenu',
+      [
+        transition(':enter', [
+          style({
+            height: '0%'
+          }),
+          animate('300ms 0s cubic-bezier(0.55, 0.085, 0.68, 0.53)',style({
+            height:'100%'
+          }))
+        ]),
+        transition(':leave',[
+          animate('250ms 0s cubic-bezier(0.165, 0.84, 0.44, 1)',style({
+            height:'0%'
+          }))
+        ])
+      ]
+    )
+  ]
 })
-export class MenuComponent implements OnInit{
+export class MenuComponent implements OnInit {
+
+  @HostBinding('@toggleMenu') animationTrigger:void;
 
   constructor() { }
 
