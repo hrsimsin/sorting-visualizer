@@ -69,8 +69,8 @@ body,html {
 
 .menu-item .button-panel *{
     margin: 0;
-    width: clamp(2.1rem,2.5vw,3.5rem);
-    height: clamp(1.9rem,2.3vw,3rem);
+    width: clamp(3.2rem,2.5vw,3rem);
+    height: clamp(2rem,2.3vw,2.9rem);
     display: flex;
     align-items: center;
     justify-content: center;
