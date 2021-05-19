@@ -11,15 +11,14 @@ export class App {
     header: Header = new Header();
     menu: Menu = new Menu(25, 150, 1, 10, 1000, 1, ['Bubble Sort', 'Selection Sort', 'Insertion Sort'], 0);
     sortSteps: Array<Bar[]> = [];
-    stepsHandler : any;
+    stepGenPending : boolean =false;
 
     constructor() {
         this.barPanel.bars = Array.from(Array(this.menu.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
         this.randomize();
     }
 
-    private bubbleSort() {
-        const arr = JSON.parse(JSON.stringify(this.barPanel.bars));
+    private bubbleSort(arr:Bar[]) {
         for (var i = 0; i < arr.length; ++i) {
             for (var j = 0; j < arr.length - 1 - i; ++j) {
                 arr[j].state = BarState.processing;
@@ -41,8 +40,7 @@ export class App {
         this.saveSortState(arr);
     }
 
-    private selectionSort() {
-        const arr = JSON.parse(JSON.stringify(this.barPanel.bars));
+    private selectionSort(arr:Bar[]) {
         for(var i=0;i<arr.length;++i){
             var pos=-1;
             var min=-1;
@@ -74,8 +72,7 @@ export class App {
         this.saveSortState(arr);
     }
 
-    private insertionSort() {
-        var arr = JSON.parse(JSON.stringify(this.barPanel.bars));
+    private insertionSort(arr:Bar[]) {
         arr[0].state=BarState.processed;
         this.saveSortState(arr);
         for(var i=1;i<arr.length;++i){
@@ -100,7 +97,7 @@ export class App {
         this.sortSteps = [];
         const sortFunctions = [this.bubbleSort.bind(this), this.selectionSort.bind(this), this.insertionSort.bind(this)];
         this.barPanel.bars = this.barPanel.bars.map(item => {item.state=BarState.unprocessed; return item});
-        sortFunctions[this.menu.selectedAlgorithmIndex]();
+        sortFunctions[this.menu.selectedAlgorithmIndex](JSON.parse(JSON.stringify(this.barPanel.bars)));
     }
 
     private saveSortState(arr: Bar[]) {
@@ -113,11 +110,15 @@ export class App {
         this.barPanel.bars = this.barPanel.bars.map(item => {item.state=BarState.unprocessed; return item});
         this.barPanel = { ...this.barPanel };
         this.header.isSorting = false;
-        this.genSortSteps();
+        this.stepGenPending = true;
     }
 
     toggleSorting() {
         this.header.isSorting = !this.header.isSorting;
+        if(this.header.isSorting && this.stepGenPending){
+            this.stepGenPending=false;
+            this.genSortSteps();
+        }
         this.sortNext();    
     }
 
@@ -162,7 +163,7 @@ export class App {
 
     changeSortingAlgorithm() {
         this.menu.selectedAlgorithmIndex = (this.menu.selectedAlgorithmIndex + 1) % (this.menu.algorithms.length);
-        this.genSortSteps();
+        this.stepGenPending = true;
     }
 
     private shuffle(array: Bar[]) {
