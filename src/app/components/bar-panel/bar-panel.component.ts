@@ -15,7 +15,7 @@ import { Bar, BarState } from './bar.model';
             transform: 'scaleY(0)',
             'transform-origin': 'bottom'
           }),
-          animate('0.2s', style({
+          animate('0.15s', style({
             transform: 'scaleY(1)',
             'transform-origin': 'bottom'
           }))
@@ -25,7 +25,7 @@ import { Bar, BarState } from './bar.model';
             transform: 'scaleY(1)',
             'transform-origin': 'bottom'
           }),
-          animate('0.2s', style({
+          animate('0.15s', style({
             transform: 'scaleY(0)',
             'transform-origin': 'bottom'
           }))
@@ -46,7 +46,7 @@ export class BarPanelComponent implements OnInit, OnChanges {
     this.bars = [];
     setTimeout(() => {
       this.bars = this.barPanel.bars;
-    }, 210);
+    }, 155);
   }
 
   ngOnInit(): void {

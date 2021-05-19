@@ -2,7 +2,7 @@
     <header (randomizeClicked)="app.randomize()" (toggleSortingClicked)="app.toggleSorting()"
         (toggleMenuClicked)="app.toggleMenu()" [header]="app.header"></header>
     <div class="bottom-container">
-        <menu *ngIf="app.header.isMenuOpen"></menu>
+        <menu [app]="app" *ngIf="app.header.isMenuOpen"></menu>
         <bar-panel [barPanel]="app.barPanel"></bar-panel>
     </div>
 </div>

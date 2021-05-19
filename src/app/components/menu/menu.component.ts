@@ -1,5 +1,7 @@
 import { Component, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { animate, query, sequence, stagger, state, style, transition, trigger } from '@angular/animations';
+import { Menu } from './menu.model';
+import { App } from 'src/app/app.model';
 
 
 @Component({
@@ -56,6 +58,7 @@ import { animate, query, sequence, stagger, state, style, transition, trigger } 
 export class MenuComponent implements OnInit {
 
   @HostBinding('@toggleMenu') animationTrigger: void;
+  @Input() app : App = new App();
 
   constructor() { }
 

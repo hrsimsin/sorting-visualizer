@@ -6,8 +6,7 @@
     --color-foreground-1 : #181818; 
     --color-foreground-2 : #202020;
     --color-text : #EFEFEF;
-    --font-heading: 1.5rem 'Archivo Black', sans-serif;
-    --font-sub-heading: 1.2rem 'Archivo Black', sans-serif;
+    --font-heading: clamp(1.1rem,2vw,1.5rem) 'Archivo Black', sans-serif;
 }
 
 body,html {
@@ -17,9 +16,7 @@ body,html {
     background-color: var(--color-background);
 }
 
-.menu-item{
-    font: var(--font-sub-heading);
-}
+
 
 .main-container{
     display: flex;
@@ -34,6 +31,7 @@ body,html {
 
 .menu{
     display: flex;
+    z-index: 10;
     align-items: center;
     justify-content: space-evenly;
     position: absolute;
@@ -43,14 +41,58 @@ body,html {
     height: 100%;
     top: 0;
     margin: 0;
+    padding: 0px;
     background-color: var(--color-foreground-1);
-    font: var(--font-sub-heading);
+    font-family: 'Archivo Black', sans-serif;
 }
 
 .menu-item{
     background-color: var(--color-background);
-    padding: 10px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    flex: 0 0 20%;
+    width: min(600px,80%);
+    font-size: clamp(0.8rem,1.3vw,1rem);
+}
+
+.menu-item .menu-item-label{
+    font-size: clamp(0.8rem,1.5vw,1.2rem);
+}
+
+
+.menu-item .button-panel{
+    display: flex;
+}
+
+.menu-item .button-panel *{
+    margin: 0;
+    width: clamp(2.1rem,2.5vw,3.5rem);
+    height: clamp(1.9rem,2.3vw,3rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-foreground-2);
+    margin-right: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-selector{
+    width: min(20rem,60%);
+    border-radius: 5px;
+    padding:clamp(0.6rem,2vw,1rem) 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-foreground-2);
+    cursor: pointer;
+}
+
+.menu-item .button-panel :last-child{
+    margin-right: 0px;
 }
 
 .header{
@@ -58,7 +100,7 @@ body,html {
     flex: 0 1 auto;
     align-items: center;
     background-color: var(--color-foreground-1);
-    padding: 1.5rem;
+    padding: clamp(0.8rem,1vw,1.5rem);
     font: var(--font-heading);
 }
 

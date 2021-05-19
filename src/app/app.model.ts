@@ -1,14 +1,16 @@
 import { BarPanel } from "./components/bar-panel/bar-panel.model";
 import { Bar, BarState } from "./components/bar-panel/bar.model";
 import { Header } from "./components/header/header.model";
+import { Menu } from "./components/menu/menu.model";
 
 export class App {
-    numBars: number = 150;
     barPanel : BarPanel = new BarPanel([],false);
     header : Header = new Header();
+    menu : Menu = new Menu(50,150,1,3,20,1);
 
     constructor() {
-        this.barPanel.bars = Array.from(Array(this.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
+        this.barPanel.bars = Array.from(Array(this.menu.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
+        this.randomize();
     }
 
     randomize() {
@@ -26,14 +28,21 @@ export class App {
         this.header.isMenuOpen = !this.header.isMenuOpen;
     }
 
+    setNumBars(numBars:number){
+        this.menu.numBars = numBars;
+        this.barPanel.bars = Array.from(Array(this.menu.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
+        this.randomize();
+    }
+
+    setNumComps(numComps:number){
+        this.menu.numComps = numComps;
+    }
+
     private shuffle(array: Bar[]) {
         var currentIndex = array.length, temporaryValue, randomIndex;
-        // While there remain elements to shuffle...
         while (0 !== currentIndex) {
-            // Pick a remaining element...
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex -= 1;
-            // And swap it with the current element.
             temporaryValue = array[currentIndex];
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
