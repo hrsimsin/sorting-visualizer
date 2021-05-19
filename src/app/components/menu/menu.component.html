@@ -28,8 +28,5 @@
 </div>
 <div class="menu-item">
     <div class="menu-item-label">Sorting Algorithm</div>
-    <div class="menu-selector">Bubble Sort</div>
-</div>
-<div class="menu-item">
-    <div class="menu-item-label">Bar Orientation</div>
+    <div class="menu-selector" (click)="app.changeSortingAlgorithm()">{{app.getSortingAlgorithm()}}</div>
 </div>
