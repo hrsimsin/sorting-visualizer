@@ -9,9 +9,7 @@ import { App } from 'src/app/app.model';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
   host: { 
-    class: 'menu' ,
-    '(@toggleMenu.start)' : 'toggleStart($event)',
-    '(@toggleMenu.done)' : 'toggleEnd($event)'
+    class: 'menu'
   },
   animations: [
     trigger(
@@ -58,7 +56,7 @@ import { App } from 'src/app/app.model';
 export class MenuComponent implements OnInit {
 
   @HostBinding('@toggleMenu') animationTrigger: void;
-  @Input() app : App = new App();
+  @Input() app : App = App.instance;
 
   constructor() { }
 

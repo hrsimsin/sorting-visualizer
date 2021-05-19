@@ -43,16 +43,21 @@ export class BarPanelComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.bars = [];
-    setTimeout(() => {
+    if (this.barPanel.isShuffled) {
+      this.bars = [];
+      setTimeout(() => {
+        this.bars = this.barPanel.bars;
+      }, 155);
+    }
+    else {
       this.bars = this.barPanel.bars;
-    }, 155);
+    }
   }
 
   ngOnInit(): void {
   }
 
-  identify(index:number,item:Bar){
+  identify(index: number, item: Bar) {
     return item.value;
   }
 

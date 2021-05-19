@@ -14,7 +14,7 @@
 </div>
 <div class="menu-item">
     <div class="menu-item-label">Sorting Speed</div>
-    <div>{{app.menu.numComps}} comparisons / sec</div>
+    <div>{{app.menu.numComps}} steps / sec</div>
     <div class="button-panel">
         <div [style.visibility]="app.menu.numComps-10 >= app.menu.minNumComps ? '':'hidden'"
             (click)="app.setNumComps(app.menu.numComps-10)">-10</div>
