@@ -123,6 +123,9 @@ body,html {
     border-radius: 5px;
     margin-left: 5px;
     transition: all 100ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header .click-icon:active{

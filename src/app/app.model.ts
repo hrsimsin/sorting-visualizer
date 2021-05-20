@@ -9,7 +9,7 @@ export class App {
 
     barPanel: BarPanel = new BarPanel([], false);
     header: Header = new Header();
-    menu: Menu = new Menu(25, 150, 1, 10, 1000, 1, ['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort', 'Quick Sort', 'Heap Sort'], 0);
+    menu: Menu = new Menu(50, 150, 1, 25, 1000, 1, ['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort', 'Quick Sort', 'Heap Sort'], 0);
     sortSteps: Array<Bar[]> = [];
     stepGenPending: boolean = false;
     randomizeGenTimeout: any;
