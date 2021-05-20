@@ -13,6 +13,7 @@ export class App {
     sortSteps: Array<Bar[]> = [];
     stepGenPending: boolean = false;
     randomizeGenTimeout: any;
+    menuGenTimeout: any;
 
     constructor() {
         this.barPanel.bars = Array.from(Array(this.menu.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
@@ -123,8 +124,22 @@ export class App {
         this.header.sortState = SortState.wait;
     }
 
+    toggleMenu() {
+        this.header.sortState = SortState.pause;
+        this.header.isMenuOpen = !this.header.isMenuOpen;
+        if (!this.header.isMenuOpen && this.stepGenPending) {
+            this.stepGenPending = false;
+            clearTimeout(this.menuGenTimeout);
+            this.menuGenTimeout = setTimeout(() => {
+                this.genSortSteps();
+                this.header.sortState = SortState.pause;
+            }, 500);
+            this.header.sortState = SortState.wait;
+        }
+    }
+
     toggleSorting() {
-        if(this.header.sortState == SortState.wait)
+        if (this.header.sortState == SortState.wait)
             return;
         if (this.header.sortState == SortState.pause)
             this.header.sortState = SortState.play;
@@ -153,14 +168,7 @@ export class App {
         }
     }
 
-    toggleMenu() {
-        this.header.sortState = SortState.pause;
-        this.header.isMenuOpen = !this.header.isMenuOpen;
-        if (!this.header.isMenuOpen && this.stepGenPending) {
-            this.stepGenPending = false;
-            this.genSortSteps();
-        }
-    }
+
 
     setNumBars(numBars: number) {
         this.menu.numBars = numBars;
