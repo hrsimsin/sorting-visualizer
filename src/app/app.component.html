@@ -1,5 +1,5 @@
 <div class="main-container">
-    <header (randomizeClicked)="app.randomize()" (toggleSortingClicked)="app.toggleSorting()"
+    <header (randomizeClicked)="app.shuffleBars()" (toggleSortingClicked)="app.toggleSorting()"
         (toggleMenuClicked)="app.toggleMenu()" [header]="app.header"></header>
     <div class="bottom-container">
         <menu [app]="app" *ngIf="app.header.isMenuOpen"></menu>

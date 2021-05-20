@@ -110,7 +110,11 @@ export class App {
         this.barPanel.bars = this.barPanel.bars.map(item => {item.state=BarState.unprocessed; return item});
         this.barPanel = { ...this.barPanel };
         this.header.sortState = SortState.pause;
-        this.stepGenPending = true;
+    }
+
+    shuffleBars(){
+        this.randomize();
+        this.genSortSteps();
     }
 
     toggleSorting() {
@@ -118,10 +122,6 @@ export class App {
             this.header.sortState = SortState.play;
         else
             this.header.sortState = SortState.pause;
-        if(this.header.sortState == SortState.play && this.stepGenPending){
-            this.stepGenPending=false;
-            this.genSortSteps();
-        }
         this.sortNext();    
     }
 
@@ -148,12 +148,17 @@ export class App {
     toggleMenu() {
         this.header.sortState = SortState.pause;
         this.header.isMenuOpen = !this.header.isMenuOpen;
+        if(!this.header.isMenuOpen && this.stepGenPending){
+            this.stepGenPending = false;
+            this.genSortSteps();
+        }
     }
 
     setNumBars(numBars: number) {
         this.menu.numBars = numBars;
         this.barPanel.bars = Array.from(Array(this.menu.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
         this.randomize();
+        this.stepGenPending = true;
     }
 
     setNumComps(numComps: number) {
