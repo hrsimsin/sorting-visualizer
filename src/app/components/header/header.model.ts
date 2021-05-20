@@ -1,4 +1,6 @@
+export enum SortState {play,pause,wait};
+
 export class Header{
-    isSorting : boolean = false;
+    sortState : SortState = SortState.pause;
     isMenuOpen : boolean = false;
 }

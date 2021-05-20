@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { Header } from './header.model';
+import { Header, SortState } from './header.model';
 
 @Component({
   selector: 'header',
@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
   @Input() isSorting : boolean = false;
 
   @Input() header : Header = new Header();
+  sortState = SortState;
 
   constructor() { }
 

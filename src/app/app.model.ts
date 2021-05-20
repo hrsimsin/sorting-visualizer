@@ -1,6 +1,6 @@
 import { BarPanel } from "./components/bar-panel/bar-panel.model";
 import { Bar, BarState } from "./components/bar-panel/bar.model";
-import { Header } from "./components/header/header.model";
+import { Header, SortState } from "./components/header/header.model";
 import { Menu } from "./components/menu/menu.model";
 
 export class App {
@@ -109,13 +109,16 @@ export class App {
         this.shuffle(this.barPanel.bars);
         this.barPanel.bars = this.barPanel.bars.map(item => {item.state=BarState.unprocessed; return item});
         this.barPanel = { ...this.barPanel };
-        this.header.isSorting = false;
+        this.header.sortState = SortState.pause;
         this.stepGenPending = true;
     }
 
     toggleSorting() {
-        this.header.isSorting = !this.header.isSorting;
-        if(this.header.isSorting && this.stepGenPending){
+        if(this.header.sortState==SortState.pause)
+            this.header.sortState = SortState.play;
+        else
+            this.header.sortState = SortState.pause;
+        if(this.header.sortState == SortState.play && this.stepGenPending){
             this.stepGenPending=false;
             this.genSortSteps();
         }
@@ -123,7 +126,7 @@ export class App {
     }
 
     private sortNext(){
-        if(!this.header.isSorting)
+        if(this.header.sortState == SortState.pause)
             return;
         this.showNextStep();
         setTimeout(() => {
@@ -138,12 +141,12 @@ export class App {
             this.barPanel = {...this.barPanel};
         }
         else{
-            this.header.isSorting = false;
+            this.header.sortState = SortState.pause;
         }
     }
 
     toggleMenu() {
-        this.header.isSorting = false;
+        this.header.sortState = SortState.pause;
         this.header.isMenuOpen = !this.header.isMenuOpen;
     }
 
