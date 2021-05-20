@@ -66,4 +66,9 @@ export class HeaderComponent implements OnInit {
     this.toggleMenuClicked.emit();
   }
 
+  getPlayPauseSvgSource(){
+    const src = this.header.sortState == this.sortState.play ?'../../../assets/pause.svg':'../../../assets/play_arrow.svg';
+    return src;
+  }
+
 }

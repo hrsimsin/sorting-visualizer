@@ -1,13 +1,23 @@
 <div class="logo">Sorting Visualizer</div>
 <div class="separator"></div>
 <span class="material-icons icon click-icon" @buttonShow *ngIf="!header.isMenuOpen"
-    (click)="randomize()">shuffle</span>
+    (click)="randomize()">
+   <img src="../../../assets/shuffle.svg">
+</span>
 
-<span class="material-icons icon click-icon" @buttonShow
-    *ngIf="!header.isMenuOpen && (header.sortState!==sortState.wait)" (click)="toggleSorting()">{{header.sortState == sortState.play ?"pause":"play_arrow"}}</span>
+<span class="icon click-icon" @buttonShow
+    *ngIf="!header.isMenuOpen && (header.sortState!==sortState.wait)" (click)="toggleSorting()">
+    <img [src]="getPlayPauseSvgSource()" />
+</span>
 
-<span class="material-icons icon click-icon" @buttonShow
-    *ngIf="!header.isMenuOpen && (header.sortState==sortState.wait)" (click)="toggleSorting()">pending</span>
+<span class="icon click-icon" @buttonShow
+    *ngIf="!header.isMenuOpen && (header.sortState==sortState.wait)" (click)="toggleSorting()">
+    <img src="../../../assets/pending.svg">
+</span>
 
-<span class="material-icons icon" @buttonShow *ngIf="header.isMenuOpen" (click)="toggleMenu()">close</span>
-<span class="material-icons icon" @buttonShow *ngIf="!header.isMenuOpen" (click)="toggleMenu()">menu</span>
+<span class="icon" @buttonShow *ngIf="header.isMenuOpen" (click)="toggleMenu()">
+    <img src="../../../assets/close.svg">
+</span>
+<span class="icon" @buttonShow *ngIf="!header.isMenuOpen" (click)="toggleMenu()">
+    <img src="../../../assets/menu.svg">
+</span>
