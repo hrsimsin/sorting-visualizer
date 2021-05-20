@@ -151,13 +151,13 @@ body,html {
 }
 
 .bar-unprocessed{
-    background-color: #EBEBEB;
+    background-color: #E5E7E6;
 }
 
 .bar-processing{
-    background-color: green;
+    background-color: #AEDCC0;
 }
 
 .bar-processed{
-    background-color: blue;
+    background-color: #2374AB;
 }
