@@ -23,12 +23,22 @@ import { App } from 'src/app/app.model';
             query('.menu-item',[
               style({transform:'scale(0)'})
             ]),
+            query('.button-panel *, .menu-selector',[
+              style({transform:'scale(0)'})
+            ]),
             animate('300ms 0s cubic-bezier(0.55, 0.085, 0.68, 0.53)', style({
               height: '100%'
             })),
             query('.menu-item',[
               stagger(30,[
-                animate('100ms 0s cubic-bezier(0.55, 0.085, 0.68, 0.53)',style({
+                animate('150ms 0s cubic-bezier(0.55, 0.085, 0.68, 0.53)',style({
+                  transform:'scale(1)'
+                }))
+              ])
+            ]),
+            query('.button-panel *, .menu-selector',[
+              stagger(10,[
+                animate('60ms 0s cubic-bezier(0.55, 0.085, 0.68, 0.53)',style({
                   transform:'scale(1)'
                 }))
               ])

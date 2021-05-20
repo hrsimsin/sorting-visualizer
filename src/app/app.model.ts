@@ -18,6 +18,11 @@ export class App {
     constructor() {
         this.barPanel.bars = Array.from(Array(this.menu.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
         this.randomize();
+        setTimeout(() => {
+            this.genSortSteps();
+            this.header.sortState = SortState.pause;
+        }, 500);
+        this.header.sortState = SortState.wait;
     }
 
     private bubbleSort(arr: Bar[]) {

@@ -24,6 +24,19 @@ import { Header, SortState } from './header.model';
         }))
       ])
     ]
+    ),
+    trigger('buttonShow',
+    [
+      transition(':enter',[
+        style({
+          transform:'scale(0)'
+        }),
+        animate('300ms 0s cubic-bezier(0.165, 0.84, 0.44, 1)',style({
+          transform:'scale(1)'
+        }))
+      ]),
+      
+    ]
     )
   ]
 })
