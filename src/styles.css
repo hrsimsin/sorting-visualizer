@@ -79,12 +79,12 @@ body,html {
     margin-right: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: all 100ms linear;
+    transition: all 30ms linear;
 }
 
 .menu-item .button-panel *:active{
-    transform: scale(0.8);
-    transition: all 100ms 'linear';
+    transform: scale(0.9);
+    transition: all 30ms 'linear';
 }
 
 .menu-selector{
@@ -96,12 +96,12 @@ body,html {
     justify-content: center;
     background-color: var(--color-foreground-2);
     cursor: pointer;
-    transition: all 100ms linear;
+    transition: all 30ms linear;
 }
 
 .menu-selector:active{
-    transform: scale(0.8);
-    transition: all 100ms 'linear';
+    transform: scale(0.9);
+    transition: all 30ms 'linear';
 }
 
 .menu-item .button-panel :last-child{
