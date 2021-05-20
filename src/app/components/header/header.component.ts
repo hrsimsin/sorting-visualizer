@@ -35,8 +35,7 @@ import { Header, SortState } from './header.model';
           transform:'scale(1)'
         }))
       ]),
-      
-    ]
+    ],
     )
   ]
 })
