@@ -2,5 +2,5 @@
 <div class="separator"></div>
 <span class="material-icons icon" @buttonShowHide *ngIf="!header.isMenuOpen" (click)="randomize()">shuffle</span>
 <span class="material-icons icon" @buttonShowHide *ngIf="!header.isMenuOpen" 
-    (click)="toggleSorting()">{{header.sortState == sortState.play ?"pause":"play_arrow"}}</span>
+    (click)="toggleSorting()">{{header.sortState == sortState.play ?"pause":( header.sortState == sortState.wait ? "pending" : "play_arrow")}}</span>
 <span class="material-icons icon" (click)="toggleMenu()">{{header.isMenuOpen?"close":"menu"}}</span>
