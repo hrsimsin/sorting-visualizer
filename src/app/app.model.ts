@@ -11,14 +11,15 @@ export class App {
     header: Header = new Header();
     menu: Menu = new Menu(25, 150, 1, 10, 1000, 1, ['Bubble Sort', 'Selection Sort', 'Insertion Sort'], 0);
     sortSteps: Array<Bar[]> = [];
-    stepGenPending : boolean =false;
+    stepGenPending: boolean = false;
+    randomizeGenTimeout: any;
 
     constructor() {
         this.barPanel.bars = Array.from(Array(this.menu.numBars).keys()).map(value => new Bar(value + 1, BarState.unprocessed));
         this.randomize();
     }
 
-    private bubbleSort(arr:Bar[]) {
+    private bubbleSort(arr: Bar[]) {
         for (var i = 0; i < arr.length; ++i) {
             for (var j = 0; j < arr.length - 1 - i; ++j) {
                 arr[j].state = BarState.processing;
@@ -33,62 +34,62 @@ export class App {
                 arr[j].state = BarState.unprocessed;
                 arr[j + 1].state = BarState.unprocessed;
             }
-            arr[arr.length-i-1].state=BarState.processed;
+            arr[arr.length - i - 1].state = BarState.processed;
         }
-        arr[0].state=BarState.processed;
-        arr[1].state=BarState.processed;
+        arr[0].state = BarState.processed;
+        arr[1].state = BarState.processed;
         this.saveSortState(arr);
     }
 
-    private selectionSort(arr:Bar[]) {
-        for(var i=0;i<arr.length;++i){
-            var pos=-1;
-            var min=-1;
-            for(var j=i;j<arr.length;++j){
+    private selectionSort(arr: Bar[]) {
+        for (var i = 0; i < arr.length; ++i) {
+            var pos = -1;
+            var min = -1;
+            for (var j = i; j < arr.length; ++j) {
                 arr[j].state = BarState.processing;
                 this.saveSortState(arr);
-                arr[j].state=BarState.unprocessed;
-                if(pos==-1){
-                    pos=j;
-                    min=arr[j].value;
+                arr[j].state = BarState.unprocessed;
+                if (pos == -1) {
+                    pos = j;
+                    min = arr[j].value;
                 }
-                else if(arr[j].value<min){
-                    min=arr[j].value;
-                    pos=j;
+                else if (arr[j].value < min) {
+                    min = arr[j].value;
+                    pos = j;
                 }
             }
             arr[pos].state = BarState.processing;
             arr[i].state = BarState.processing;
             this.saveSortState(arr);
             var temp = arr[pos];
-            arr[pos]=arr[i];
-            arr[i]=temp;
+            arr[pos] = arr[i];
+            arr[i] = temp;
             this.saveSortState(arr);
             arr[i].state = BarState.processed;
-            if(i!==pos)
+            if (i !== pos)
                 arr[pos].state = BarState.unprocessed;
         }
-        arr[arr.length-1].state = BarState.processed;
+        arr[arr.length - 1].state = BarState.processed;
         this.saveSortState(arr);
     }
 
-    private insertionSort(arr:Bar[]) {
-        arr[0].state=BarState.processed;
+    private insertionSort(arr: Bar[]) {
+        arr[0].state = BarState.processed;
         this.saveSortState(arr);
-        for(var i=1;i<arr.length;++i){
-            arr[i].state=BarState.processing;
+        for (var i = 1; i < arr.length; ++i) {
+            arr[i].state = BarState.processing;
             this.saveSortState(arr);
-            var j=i;
-            while(j>0 && arr[j-1].value > arr[j].value){
-                var temp=arr[j];
-                arr[j]=arr[j-1];
-                arr[j-1]=temp;
+            var j = i;
+            while (j > 0 && arr[j - 1].value > arr[j].value) {
+                var temp = arr[j];
+                arr[j] = arr[j - 1];
+                arr[j - 1] = temp;
                 this.saveSortState(arr);
                 --j;
             }
-            arr[j].state=BarState.processed;
+            arr[j].state = BarState.processed;
         }
-        arr = arr.map((item:Bar) => {item.state=BarState.processed; return item});
+        arr = arr.map((item: Bar) => { item.state = BarState.processed; return item });
         this.saveSortState(arr);
     }
 
@@ -96,7 +97,7 @@ export class App {
     private genSortSteps() {
         this.sortSteps = [];
         const sortFunctions = [this.bubbleSort.bind(this), this.selectionSort.bind(this), this.insertionSort.bind(this)];
-        this.barPanel.bars = this.barPanel.bars.map(item => {item.state=BarState.unprocessed; return item});
+        this.barPanel.bars = this.barPanel.bars.map(item => { item.state = BarState.unprocessed; return item });
         sortFunctions[this.menu.selectedAlgorithmIndex](JSON.parse(JSON.stringify(this.barPanel.bars)));
     }
 
@@ -105,42 +106,49 @@ export class App {
     }
 
     randomize() {
+        this.header.sortState = SortState.pause;
         this.barPanel.isShuffled = true;
         this.shuffle(this.barPanel.bars);
-        this.barPanel.bars = this.barPanel.bars.map(item => {item.state=BarState.unprocessed; return item});
+        this.barPanel.bars = this.barPanel.bars.map(item => { item.state = BarState.unprocessed; return item });
         this.barPanel = { ...this.barPanel };
-        this.header.sortState = SortState.pause;
     }
 
-    shuffleBars(){
+    shuffleBars() {
         this.randomize();
-        this.genSortSteps();
+        clearTimeout(this.randomizeGenTimeout);
+        this.randomizeGenTimeout = setTimeout(() => {
+            this.genSortSteps();
+            this.header.sortState = SortState.pause;
+        }, 500);
+        this.header.sortState = SortState.wait;
     }
 
     toggleSorting() {
-        if(this.header.sortState==SortState.pause)
+        if(this.header.sortState == SortState.wait)
+            return;
+        if (this.header.sortState == SortState.pause)
             this.header.sortState = SortState.play;
         else
             this.header.sortState = SortState.pause;
-        this.sortNext();    
+        this.sortNext();
     }
 
-    private sortNext(){
-        if(this.header.sortState == SortState.pause)
+    private sortNext() {
+        if (this.header.sortState != SortState.play)
             return;
         this.showNextStep();
         setTimeout(() => {
             this.sortNext();
-        }, 1000/this.menu.numComps);
+        }, 1000 / this.menu.numComps);
     }
 
-    private showNextStep(){
-        if(this.sortSteps.length!=0){
+    private showNextStep() {
+        if (this.sortSteps.length != 0) {
             this.barPanel.bars = (this.sortSteps.shift() as Bar[]);
             this.barPanel.isShuffled = false;
-            this.barPanel = {...this.barPanel};
+            this.barPanel = { ...this.barPanel };
         }
-        else{
+        else {
             this.header.sortState = SortState.pause;
         }
     }
@@ -148,7 +156,7 @@ export class App {
     toggleMenu() {
         this.header.sortState = SortState.pause;
         this.header.isMenuOpen = !this.header.isMenuOpen;
-        if(!this.header.isMenuOpen && this.stepGenPending){
+        if (!this.header.isMenuOpen && this.stepGenPending) {
             this.stepGenPending = false;
             this.genSortSteps();
         }
