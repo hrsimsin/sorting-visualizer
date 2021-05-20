@@ -9,7 +9,7 @@ export class App {
 
     barPanel: BarPanel = new BarPanel([], false);
     header: Header = new Header();
-    menu: Menu = new Menu(25, 150, 1, 10, 1000, 1, ['Bubble Sort', 'Selection Sort', 'Insertion Sort'], 0);
+    menu: Menu = new Menu(25, 150, 1, 10, 1000, 1, ['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort'], 0);
     sortSteps: Array<Bar[]> = [];
     stepGenPending: boolean = false;
     randomizeGenTimeout: any;
@@ -99,10 +99,87 @@ export class App {
         this.saveSortState(arr);
     }
 
+    private merge(arr: Bar[], l: number, m: number, r: number,len:number) {
+        const n1 = m - l + 1;
+        const n2 = r - m;
+
+        const L: Bar[] = Array(n1);
+        const R: Bar[] = Array(n2);
+
+        for (var i = 0; i < n1; i++)
+            L[i] = arr[l + i];
+        for (var j = 0; j < n2; j++)
+            R[j] = arr[m + 1 + j];
+
+        var i = 0, j = 0, k = l;
+
+        while (i < n1 && j < n2) {
+            L[i].state = BarState.processing;
+            R[j].state = BarState.processing;
+            if (L[i].value <= R[j].value) {
+               
+
+                arr[k] = L[i];
+
+                this.saveSortState(arr);
+
+                L[i].state = BarState.unprocessed;
+                R[j].state = BarState.unprocessed;
+
+                arr[k].state = (r==len-1 && l==0) ? BarState.processed : BarState.unprocessed;
+                i++;
+            }
+            else {
+
+                arr[k] = R[j];
+                this.saveSortState(arr);
+
+                L[i].state = BarState.unprocessed;
+                R[j].state = BarState.unprocessed;
+
+    
+                arr[k].state = (r==len-1  && l==0) ? BarState.processed : BarState.unprocessed;
+                j++;
+            }
+            this.saveSortState(arr);
+            k++;
+        }
+
+        while (i < n1) {
+            arr[k] = L[i];
+            arr[k].state = (r==len-1  && l==0) ? BarState.processed : BarState.unprocessed;
+            this.saveSortState(arr);
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            arr[k] = R[j];
+            arr[k].state = (r==len-1  && l==0) ? BarState.processed : BarState.unprocessed;
+            this.saveSortState(arr);
+            j++;
+            k++;
+        }
+    }
+
+    private mergeSortRec(arr: Bar[], l: number, r: number,len:number) {
+        if (l >= r) {
+            return;
+        }
+        const m = l + Math.floor((r - l) / 2);
+        this.mergeSortRec(arr, l, m,len);
+        this.mergeSortRec(arr, m + 1, r,len);
+        this.merge(arr, l, m, r,len);
+    }
+
+    private mergeSort(arr: Bar[]) {
+        this.mergeSortRec(arr, 0, arr.length - 1,arr.length);
+    }
+
 
     private genSortSteps() {
         this.sortSteps = [];
-        const sortFunctions = [this.bubbleSort.bind(this), this.selectionSort.bind(this), this.insertionSort.bind(this)];
+        const sortFunctions = [this.bubbleSort.bind(this), this.selectionSort.bind(this), this.insertionSort.bind(this), this.mergeSort.bind(this)];
         this.barPanel.bars = this.barPanel.bars.map(item => { item.state = BarState.unprocessed; return item });
         sortFunctions[this.menu.selectedAlgorithmIndex](JSON.parse(JSON.stringify(this.barPanel.bars)));
     }
