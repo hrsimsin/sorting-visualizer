@@ -1,6 +1,6 @@
 # Sorting Visualizer
 
-Live at : https://zealous-roentgen-cbe0e4.netlify.app/
+Live at : https://sorting-visualizer.harsimar.in/
 
 An Angular Web App for visualising sorting algorithms. 
 
